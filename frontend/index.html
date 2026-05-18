@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Controle de Estoque</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📦 Sistema de Controle de Estoque</h1>
+            <p>Gerencie seus produtos de forma simples e eficiente</p>
+        </header>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Total de Produtos</h3>
+                <div class="number" id="totalProducts">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Valor Total do Estoque</h3>
+                <div class="value" id="totalValue">R$ 0,00</div>
+            </div>
+            <div class="stat-card">
+                <h3>Produtos com Baixo Estoque</h3>
+                <div class="number" id="lowStockCount">0</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="form-section">
+                <h2 id="formTitle">📝 Cadastrar Produto</h2>
+                <div id="alertMessage"></div>
+                <form id="productForm">
+                    <input type="hidden" id="productId">
+                    <div class="form-group">
+                        <label>Nome do Produto *</label>
+                        <input type="text" id="productName" required placeholder="Ex: Notebook Dell">
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <input type="text" id="productDescription" placeholder="Descrição opcional">
+                    </div>
+                    <div class="form-group">
+                        <label>Preço (R$) *</label>
+                        <input type="number" id="productPrice" step="0.01" required placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>Quantidade em Estoque *</label>
+                        <input type="number" id="productQuantity" required placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Estoque Mínimo</label>
+                        <input type="number" id="productMinStock" value="5" placeholder="Estoque mínimo para alerta">
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select id="productCategory">
+                            <option value="Eletrônicos">Eletrônicos</option>
+                            <option value="Vestuário">Vestuário</option>
+                            <option value="Alimentos">Alimentos</option>
+                            <option value="Móveis">Móveis</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="submitBtn">Cadastrar Produto</button>
+                    <button type="button" id="cancelBtn" style="display:none; margin-top: 10px;">Cancelar Edição</button>
+                </form>
+            </div>
+
+            <div class="list-section">
+                <h2>📋 Produtos Cadastrados</h2>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="🔍 Buscar produto...">
+                    <select id="categoryFilter">
+                        <option value="">Todas categorias</option>
+                        <option value="Eletrônicos">Eletrônicos</option>
+                        <option value="Vestuário">Vestuário</option>
+                        <option value="Alimentos">Alimentos</option>
+                        <option value="Móveis">Móveis</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table id="productsTable">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
+                                <th>Quantidade</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsList"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="movementModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Registrar Movimentação</h3>
+            <div class="form-group">
+                <label>Tipo de Movimentação</label>
+                <select id="movementType">
+                    <option value="entry">📥 Entrada</option>
+                    <option value="exit">📤 Saída</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Quantidade</label>
+                <input type="number" id="movementQuantity" min="1" required>
+            </div>
+            <div class="modal-buttons">
+                <button onclick="closeModal()">Cancelar</button>
+                <button class="btn-success" onclick="confirmMovement()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
